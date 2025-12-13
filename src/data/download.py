@@ -12,9 +12,8 @@ os.chdir(os.getenv("PROJECT_DIR"))
 
 DATASET_NAME = (
     "era5-"
-    + parse_args.start_year
-    + parse_args.end_year
-    + f"-({parse_args.start_month}-{parse_args.end_month} months)"
+    + f"{parse_args.start_month}-{parse_args.start_day}-{parse_args.start_year}--"
+    + f"{parse_args.end_month}-{parse_args.end_day}-{parse_args.end_year}"
     + ".zip"
 )
 
@@ -25,9 +24,12 @@ request = {
     "product_type": ["reanalysis"],
     "variable": [
         "10m_u_component_of_wind",
+        "10m_v_component_of_wind",
         "2m_temperature",
+        "sea_surface_temperature",
+        "surface_pressure",
         "total_precipitation",
-        "large_scale_precipitation",
+        "skin_temperature",
     ],
     "year": [
         str(year)
@@ -37,15 +39,26 @@ request = {
         "{:02}".format(month)
         for month in range(int(parse_args.start_month), int(parse_args.end_month) + 1)
     ],
-    "day": ["{:02}".format(day) for day in range(1, 32)],
+    "day": [
+        "{:02}".format(day)
+        for day in range(int(parse_args.start_day), int(parse_args.end_day) + 1)
+    ],
     "time": ["{:02}:00".format(hour) for hour in range(23)],
     "data_format": "netcdf",
     "download_format": "zip",
-    "area": list(
-        map(int, [parse_args.north, parse_args.west, parse_args.south, parse_args.east])
-    ),
 }
 
+
+if all(
+    v is not None
+    for v in [parse_args.north, parse_args.south, parse_args.east, parse_args.west]
+):
+    request["area"] = [
+        parse_args.north,
+        parse_args.west,
+        parse_args.south,
+        parse_args.east,
+    ]  # порядок: North, West, South, East
 
 # Create request
 target = os.path.join(os.getenv("PROJECT_DIR"), "data", "raw", DATASET_NAME)
