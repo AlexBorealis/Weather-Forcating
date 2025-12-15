@@ -27,7 +27,6 @@ file_name1 = os.path.join(extracted_dirs[-1], os.listdir(extracted_dirs[-1])[0])
 # tp
 file_name2 = os.path.join(extracted_dirs[-1], os.listdir(extracted_dirs[-1])[1])
 
-print(file_name1, file_name2)
 if not os.path.exists(os.path.join(os.path.dirname(file_name1), "all_data.nc")):
     ds1 = xr.open_dataset(file_name1)
     ds2 = xr.open_dataset(file_name2)
@@ -36,7 +35,19 @@ if not os.path.exists(os.path.join(os.path.dirname(file_name1), "all_data.nc")):
         ds_merged = ds1.merge(ds2, compat="override")
         ds_merged.to_netcdf(os.path.join(os.path.dirname(file_name1), "all_data.nc"))
 
-ds_main = xr.open_dataset(os.path.join(os.path.dirname(file_name1), "all_data.nc"))
+DS_MAIN = xr.open_dataset(os.path.join(os.path.dirname(file_name1), "all_data.nc"))
 
-print(ds_main.info())
-print(ds_main.data_vars)
+# print(DS_MAIN.info())
+# print(
+#     DS_MAIN["tp"].isel(valid_time=0).min().values,
+#     DS_MAIN["tp"].isel(valid_time=0).max().values,
+# )
+# print(
+#     DS_MAIN["sp"].isel(valid_time=0).min().values,
+#     DS_MAIN["sp"].isel(valid_time=0).max().values,
+# )
+# print(
+#     DS_MAIN["u10"].isel(valid_time=0).min().values,
+#     DS_MAIN["u10"].isel(valid_time=0).max().values,
+# )
+# print(type(DS_MAIN))
