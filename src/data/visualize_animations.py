@@ -1,23 +1,25 @@
 from src.data.preprocess import DS_MAIN
-from src.utils.animation_utils import create_animations
+from src.visualizer.visualizer import Visualizer
+
+visualizer = Visualizer(DS_MAIN)
 
 # u10 (10m U wind)
-create_animations(DS_MAIN, "u10", "coolwarm", "10m U Wind", "m/s")
+visualizer.create_animation("u10", "coolwarm", "10m U Wind", "m/s")
 
 # v10 (10m V wind)
-create_animations(DS_MAIN, "v10", "coolwarm", "10m V Wind", "m/s")
+visualizer.create_animation("v10", "coolwarm", "10m V Wind", "m/s")
 
 # t2m (2m Temperature)
-create_animations(DS_MAIN, "t2m", "coolwarm", "2m Temperature", "C")
+visualizer.create_animation("t2m", "coolwarm", "2m Temperature", "C")
 
 # sst (Sea Surface Temperature)
-create_animations(DS_MAIN, "sst", "coolwarm", "Sea Surface Temperature", "C")
+visualizer.create_animation("sst", "coolwarm", "Sea Surface Temperature", "C")
 
 # sp (Surface Pressure)
-create_animations(DS_MAIN, "sp", "viridis", "Surface Pressure", "mm Hg")
+visualizer.create_animation("sp", "viridis", "Surface Pressure", "mm Hg")
 
 # skt (Skin Temperature)
-create_animations(DS_MAIN, "skt", "coolwarm", "Skin Temperature", "C")
+visualizer.create_animation("skt", "coolwarm", "Skin Temperature", "C")
 
 # tp (Total Precipitation)
-create_animations(DS_MAIN, "tp", "Blues", "Total Precipitation", "mm")
+visualizer.create_animation("tp", "Blues", "Total Precipitation", "mm")
