@@ -3,7 +3,7 @@ import os
 import cdsapi
 from dotenv import load_dotenv
 
-from src.utils.parse_arguments import parse_args
+from src.utils.parse_args import parse_args
 
 load_dotenv()
 
@@ -43,7 +43,7 @@ request = {
         "{:02}".format(day)
         for day in range(int(parse_args.start_day), int(parse_args.end_day) + 1)
     ],
-    "time": ["{:02}:00".format(hour) for hour in range(23)],
+    "time": ["{:02}:00".format(hour) for hour in range(24)],
     "data_format": "netcdf",
     "download_format": "zip",
 }
